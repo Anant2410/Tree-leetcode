@@ -1,0 +1,74 @@
+/* recursive one
+
+void f(TreeNode* root, vector<int>& ans){
+        if(!root) return;
+        
+        ans.push_back(root->val);
+        f(root->left,ans);
+        f(root->right,ans);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        f(root,ans);
+        return ans;
+    }
+    
+*/
+
+
+/* iterative one 
+
+vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> st;
+        if(root==NULL) return ans;
+        st.push(root);
+        
+        while(!st.empty()){
+           TreeNode* x = st.top();
+            st.pop();
+            ans.push_back(x->val);
+            if(x->right)
+                st.push(x->right);
+            if(x->left)
+                st.push(x->left);
+        }
+        
+        return ans;
+    }
+    
+  */
+  
+  
+  /*morris traversal
+  
+   vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        TreeNode* curr = root, *prev;
+        if(root==NULL) return ans;
+        while(curr!= NULL){
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr = curr->right;
+            }
+            else{
+                prev = curr->left;
+                while(prev->right && prev->right!=curr){
+                    prev = prev->right;
+                }
+                if(prev->right==NULL){
+                    prev->right= curr;
+                    ans.push_back(curr->val);
+                    curr = curr->left;
+                }
+                else{
+                    prev->right=NULL;
+                    curr = curr->right;
+                }
+            }
+        }
+        return ans;
+    }
+    
+   */
+    
