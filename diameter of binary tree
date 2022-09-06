@@ -1,0 +1,14 @@
+int f(TreeNode* root, int &d){                      diameter is length between 2 node // 
+        if(root==NULL) return 0;
+        
+        int l = f(root->left,d);
+        int r = f(root->right,d);
+        
+        d = max(d,l+r);
+        return 1 + max(l,r);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int  d = 0;
+        f(root,d);
+        return d;
+    }
