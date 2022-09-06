@@ -1,0 +1,28 @@
+void f(Node* root){                               // the idead is if the 2 part of stack (int) is 1
+  vector<int> pre,in,post;                          // then put the ans in preorder ; increment the 2 iterator; push iterator in stack 
+  stack<pair<Node*, int>> st;                          // and push the left of it.first,1 in stack; 
+  st.push({root,1});
+  if(root==NULL) return;
+  
+  while(!st.empty()){
+  auto it = st.top();
+  st.pop();
+  if(it.second==1){                      // for preorder//
+    pre.push_back(it.first->val);
+    it.second++;
+    st.push(it);
+    if(it.first->left!=NULL)
+      st.push({it.first->left,1});
+    }
+    else if(it.second==2){                                  // for inorder perform the same procedure just place the right part to stack
+      in.push_back(it.first->val);
+      it.second++;
+      st.push(it);
+      if(it.first->right)
+        st.push({it.first->right,1});
+    }
+    else{                                               // post order 
+      post.push_back(it.first->val);        
+    }
+  }
+}
