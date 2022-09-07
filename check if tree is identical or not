@@ -1,0 +1,10 @@
+ find the preorder of both the trees if they are equal then yes they are identical else not identical//
+ 
+ 
+ 
+ bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL || q==NULL)
+            return p==q;
+        
+        return (p->val==q->val && isSameTree(p->left,q->left) && isSameTree(p->right,q->right));
+    }
