@@ -1,0 +1,28 @@
+ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if(root==NULL) return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        bool flag = true;                                       // flag tells us weather to move from left to right or vice versa//
+        
+        while(!q.empty()){                                             
+            
+            int size = q.size();
+            vector<int> temp(size);                       // declare a vector of size 
+            
+            for(int i=0;i<size;i++){
+                TreeNode* node = q.front();                     
+                q.pop();
+                int idx = (flag) ? i : (size - i - 1);                    // check if flag is true(l->r) then idx == i else idx == size - i - 1;
+                temp[idx] = node->val;
+                
+                if(node->left)                                         // push node->left
+                    q.push(node->left);
+                if(node->right)                                     // push node->right
+                    q.push(node->right);
+            }
+            flag = !flag;                                             // change flag
+            ans.push_back(temp);                                          // push temp to our ans
+        }
+        return ans;
+    }
