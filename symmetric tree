@@ -1,0 +1,13 @@
+    bool f(TreeNode* a, TreeNode* b){
+        if(a==NULL || b==NULL)                                                       // check for left annd right on both the half
+            return a==b;                                                            // if you move left in one half move right in second half
+        
+        if(a->val!= b->val) return false;
+        
+        return f(a->left,b->right) && f(a->right,b->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL) return true;
+        
+        return f(root->left, root->right);
+    }
