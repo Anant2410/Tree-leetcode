@@ -1,0 +1,61 @@
+int f1(unordered_map<Node* , Node*>&mp, Node* tar)                                                // returns the time require to burn the tree
+    {
+        unordered_map<Node*, bool> vis;
+        queue<Node*> q;
+        q.push(tar);
+        vis[tar] = true;
+        int time = 0;
+        while(!q.empty()){
+            int size = q.size();
+            int f = 0;
+            for(int i=0;i<size;i++){
+                Node* curr = q.front();
+                q.pop();
+                if(curr->left && !vis[curr->left]){                                     // for left//
+                    f = 1;
+                    vis[curr->left] = true;
+                    q.push(curr->left);
+                }
+                if(curr->right && !vis[curr->right]){                                // for rright//
+                    f = 1;
+                    vis[curr->right] = true;
+                    q.push(curr->right);
+                }
+                if(mp[curr] && !vis[mp[curr]]){                                        // for parent node//
+                    f = 1;
+                    vis[mp[curr]] = true;
+                    q.push(mp[curr]);
+                }
+            }             
+            if(f) time++;                                                        // to check weather it actually burns a tree // 
+        }
+        return time;
+    }
+    Node* f(Node* root, unordered_map<Node* , Node*>&mp, int target)                  // place all the parent pointers and return the address of target node//
+    {
+        Node* res;
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            Node* curr = q.front();
+            q.pop();
+            if(curr->data==target) res = curr;
+            if(curr->left){
+                mp[curr->left] = curr;
+                q.push(curr->left);
+            }
+            if(curr->right){
+                mp[curr->right] = curr;
+                q.push(curr->right);
+            }
+        }
+        return res;
+    }
+    int minTime(Node* root, int target) 
+    {
+        unordered_map<Node* , Node*> mp;                              // mp that stores the parent of every node//
+        Node* tar = f(root,mp,target);                                // stores the address of target node//
+        int ans = f1(mp,tar);                                             // returns the ans of the probllem//
+        return ans;                                                                  
+    }
