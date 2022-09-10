@@ -1,0 +1,24 @@
+TreeNode* f(vector<int>& preorder, int ps, int pe, vector<int>& inorder,int is, int ie,
+               map<int, int>& mp)
+    {                                       
+        if(ps>pe || is> ie) return NULL;                                                //if ps > pe || is > ie return  null//
+        TreeNode* root = new TreeNode(preorder[ps]);                                  //take the first element from preorder and create a node as it is root of bt//
+        int inroot = mp[root->val];                                                   // find index in inorder 
+        int numsleft = inroot - is;                                                     // this indicate the number of nodes on left side of the root node//
+        
+        root->left = f(preorder,ps+1,ps+numsleft,inorder,is,inroot-1,mp);              // call function again with ps,ps+numsleft,is,inroot-1;
+        
+        root->right = f(preorder,ps+numsleft+1,pe,inorder,inroot+1,ie,mp);               // call function again with ps+numsleft+1,pe,inroot+!,ie//
+        
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        map<int, int> mp;
+        for(int i=0;i<inorder.size();i++)                                         // place the values in inorder to map to easily find the index of number //
+        {
+            mp[inorder[i]] = i;
+        }
+        TreeNode* root = f(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,mp);     // find the solution //
+        
+        return root;
+    }
