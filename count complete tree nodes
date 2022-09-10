@@ -1,0 +1,26 @@
+int fl(TreeNode* root){                                                              // finding left height//
+        int h = 0;
+        while(root){
+            h++;
+            root = root->left;
+        }
+        return h;
+    }
+    int fr(TreeNode* root){                                                          // finding right height//
+        int h = 0;
+        while(root){
+            h++;
+            root = root->right;
+        }
+        return h;
+    }
+    int countNodes(TreeNode* root) {                                              // check if it is a complete bt if so, then simply retun pow(2,height-1);
+        if(root==NULL) return 0;
+        
+        int l = fl(root);                                                      // find left height//
+        int r = fr(root);                                                          // find right height//
+        if(l==r)                                                                      
+            return pow(2,l) - 1;                                               // if equal that means it is complete b t return //
+        else
+            return 1 + countNodes(root->left) + countNodes(root->right);              // else return 1 + height of left bt + height of right bt//
+    }
