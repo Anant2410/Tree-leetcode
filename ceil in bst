@@ -1,0 +1,24 @@
+// ceil is the lowset value greater than the key//
+
+
+int findCeil(BinaryTreeNode<int> *node, int x){
+    int ans = -1;
+    while(node)
+    {
+        if(node->data == x)                       // is key is found in the tree sumply return //
+        {
+            ans = node->data;
+            return ans;
+        }
+        else if(node->data < x)           // else if value of node is smaller than key , move right as we want to get the value greater than key//
+        {
+            node = node->right;
+        }
+        else                              // if value is greater than key , store the ans in variable and move left as we want to get the lowest value
+        {
+            ans = node->data;
+            node = node->left;
+        }
+    }
+    return ans;
+}
