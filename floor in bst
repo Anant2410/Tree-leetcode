@@ -1,0 +1,24 @@
+floor is the greatest value smaller than the  given term(x)//
+
+int floorInBST(TreeNode<int> * root, int x)
+{
+    int ans = -1;
+    while(root)
+    {
+        if(root->val==x)                          // if data found simply return//
+        {
+            ans = root->val;
+            return ans;
+        }
+        else if(root->val > x)                     // if data is greater than the value , move left as we want the smaller value//
+        {
+            root = root->left;
+        }
+        else                                          // if data is smaller than vallue , store data in a variable and move right as we want to find the maximum answer//
+        {
+            ans = root->val;
+            root = root->right;
+        }
+    }
+    return ans; 
+}
