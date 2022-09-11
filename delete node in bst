@@ -1,0 +1,54 @@
+ TreeNode* f2(TreeNode* root)
+    {
+        if(root->right==NULL)
+        {
+            return root;
+        }
+        return f2(root->right);
+    }
+    TreeNode* f(TreeNode* root)
+    {
+        if(root->left==NULL) return root->right;
+        if(root->right==NULL) return root->left;
+        
+        TreeNode* rc = root->right;
+        TreeNode* lr = f2(root->left);
+        lr->right = rc;
+        
+        return root->left;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==NULL)
+            return NULL;
+        if(root->val==key)
+        {
+            return f(root->left);
+        }
+        TreeNode* dummy = root;
+        while(root!=NULL)
+        {
+            if(root->val > key)
+            {
+                if(root->left!=NULL && root->left->val==key)
+                {
+                    root->left = f(root->left);
+                    break;
+                }
+                else{
+                    root = root->left;
+                }
+            }
+            else
+            {
+                if(root->right!=NULL && root->right->val==key)
+                {
+                    root->right = f(root->right);
+                    break;
+                }
+                else{
+                    root = root->right;
+                }
+            }
+        }
+        return dummy;
+    }
